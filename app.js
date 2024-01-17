@@ -8,6 +8,17 @@ const app = express();
 //middleware
 app.use(express.json());
 
+//define middleware
+app.use((req, res, next) => {
+  console.log('Hello from the middleware 🖐️');
+  next();
+});
+
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
+
 //Read from file
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
@@ -15,9 +26,15 @@ const tours = JSON.parse(
 
 //Get All Tours
 const getAllTours = (req, res) => {
+  //1. using middleware
+  console.log(req.requestTime);
+
   res.status(200).json({
     //JSend data specification
     status: 'success',
+
+    //2. using middleware
+    requestedAt: req.requestTime,
 
     //results is not JSend data specification
     results: tours.length,
