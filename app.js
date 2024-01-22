@@ -7,7 +7,12 @@ const userRouter = require('./routes/userRoutes');
 const app = express();
 
 /* 1) MIDDLEWARES */
-app.use(morgan('dev')); //logging
+
+//works only when envrionment is development ex) to skip log-in
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev')); //logging
+}
+
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`)); //for static files
 

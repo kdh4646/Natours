@@ -8,7 +8,13 @@
 # 📖 Introduction
 
 <!--
+
+> [!NOTE]
+> If Window, run "npm i -g win-node-env" to recognize "NODE_ENV" command in Window OS
+
+
 1. Implement event-loop and streams to learn Node.js
+
 
 2. Read and show data based on common template
 3. Export a module for better scalability
