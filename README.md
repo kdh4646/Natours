@@ -11,6 +11,7 @@
 
 > [!NOTE]
 > If Window, run "npm i -g win-node-env" to recognize "NODE_ENV" command in Window OS
+> Setting up ESLint + Prettier: run "npm i eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-node eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react --save-dev"
 
 
 1. Implement event-loop and streams to learn Node.js
