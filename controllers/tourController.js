@@ -7,7 +7,7 @@ exports.getAllTours = async (req, res) => {
     //1 A) Filtering
     const queryObj = { ...req.query };
     const excludeFields = ['page', 'sort', 'limit', 'fields'];
-    excludeFields.forEach((el) => delete queryObj[el]);
+    excludeFields.forEach((el) => delete queryObj[el]); //example how to exclude fields
 
     //1 B) Advanced filtering
     let queryStr = JSON.stringify(queryObj);
@@ -30,6 +30,19 @@ exports.getAllTours = async (req, res) => {
       query = query.select(fields);
     } else {
       query = query.select('-__v'); // '-': exclude field
+    }
+
+    //4) Paging
+    const page = req.query.page * 1 || 1; //convert to number, default value
+    const limit = req.query.limit * 1 || 100;
+    const skip = (page - 1) * limit; //ex) page 2: starts from 11
+
+    query = query.skip(skip).limit(limit);
+
+    if (req.query.page) {
+      const numTours = await Tour.countDocuments();
+
+      if (skip >= numTours) throw new Error('This page does not exists');
     }
 
     //EXECUTE QUERY
