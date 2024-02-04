@@ -17,25 +17,26 @@ const signToken = (id) =>
     },
   );
 
-exports.signup = catchAsync(async (req, res, next) => {
-  const newUser = await User.create({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    passwordConfirm: req.body.passwordConfirm,
-  });
+//create SendToken
+const createSendToken = (user, statusCode, res) => {
+  const token = signToken(user._id);
 
-  const token = signToken(newUser._id);
-
-  res.status(201).json({
+  res.status(statusCode).json({
     status: 'success',
     token,
     data: {
-      user: newUser,
+      user,
     },
   });
+};
+
+//Sign Up
+exports.signup = catchAsync(async (req, res, next) => {
+  const newUser = await User.create(req.body);
+  createSendToken(newUser, 201, res);
 });
 
+//Login
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -52,14 +53,10 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   //3) If everything ok, send token to client
-  const token = signToken(user._id);
-
-  res.status(200).json({
-    status: 'success',
-    token,
-  });
+  createSendToken(user, 200, res);
 });
 
+//Protect
 exports.protect = catchAsync(async (req, res, next) => {
   //1) Getting token and check of it's there
   let token;
@@ -104,6 +101,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+//Restrict To
 exports.restrictTo =
   (...roles) =>
   (req, res, next) => {
@@ -117,6 +115,7 @@ exports.restrictTo =
     next();
   };
 
+//Forgot Password
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   //1) Get user based on POSTed email
   const user = await User.findOne({ email: req.body.email });
@@ -159,6 +158,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   }
 });
 
+//Reset Password
 exports.resetPassword = catchAsync(async (req, res, next) => {
   //1) Get user based on the token
   const hashedToken = crypto
@@ -185,10 +185,23 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
   //3) Update changedPasswordAt property for the user - userModel.js middleware part
   //4) Log the user in, send JMT
-  const token = signToken(user._id);
+  createSendToken(user, 200, res);
+});
 
-  res.status(200).json({
-    status: 'success',
-    token,
-  });
+//Update Password
+exports.updatePassword = catchAsync(async (req, res, next) => {
+  //1) Get user from collection
+  const user = await User.findById(req.user.id).select('+password');
+
+  //2) Check if POSTed current password is correct
+  if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
+    return next(new AppError('Your current password is wrong.', 401));
+  }
+  //3) If so, update password
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  await user.save();
+
+  //4) Log user in, send JWT
+  createSendToken(user, 200, res);
 });
