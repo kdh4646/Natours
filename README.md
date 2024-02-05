@@ -18,6 +18,8 @@
     > express for framework
     > mongoose for data management
     > bcryptjs, jsonwebtoken, express-rate-limit, helmet for security
+    > express-mongo-sanitize for against NoSQL query injection
+    > xss-clean for agains XSS
     > morgan for logger
     > nodemailer for sending mail
     > vaidator for validation
