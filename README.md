@@ -17,7 +17,7 @@
 2. Used
     > express for framework
     > mongoose for data management
-    > bcryptjs, jsonwebtoken, express-rate-limit for security
+    > bcryptjs, jsonwebtoken, express-rate-limit, helmet for security
     > morgan for logger
     > nodemailer for sending mail
     > vaidator for validation
