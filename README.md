@@ -13,8 +13,17 @@
 > If Window, run "npm i -g win-node-env" to recognize "NODE_ENV" command in Window OS
 > Setting up ESLint + Prettier: run "npm i eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-node eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react --save-dev"
 
+1. Implemented event-loop and streams to learn Node.js
+2. Used
+    > express for framework
+    > mongoose for data management
+    > bcryptjs, jsonwebtoken for security
+    > morgan for logger
+    > nodemailer for sending mail
+    > vaidator for validation
+    > dotenv for control environment
+    > slugify for converting to lower case
 
-1. Implement event-loop and streams to learn Node.js
 
 
 2. Read and show data based on common template
