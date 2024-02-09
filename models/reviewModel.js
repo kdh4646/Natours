@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Tour = require('./tourModel');
 
 //creating Schema
 const reviewSchema = new mongoose.Schema(
@@ -45,6 +46,56 @@ reviewSchema.pre(/^find/, function (next) {
   });
 
   next();
+});
+
+//Calculating Average Rating on Tours
+//1) Using aggregate(집약), get average rating
+//2) Set and update ratingsQuantity, ratingsAverage
+reviewSchema.statics.calcAverageRatings = async function (tourId) {
+  const stats = await this.aggregate([
+    {
+      $match: { tour: tourId },
+    },
+    {
+      $group: {
+        _id: '$tour',
+        nRating: { $sum: 1 },
+        avgRating: { $avg: '$rating' },
+      },
+    },
+  ]);
+
+  //Prevent Empty Array Error
+  if (stats.length > 0) {
+    await Tour.findByIdAndUpdate(tourId, {
+      ratingsQuantity: stats[0].nRating,
+      ratingsAverage: stats[0].avgRating,
+    });
+  } else {
+    await Tour.findByIdAndUpdate(tourId, {
+      ratingsQuantity: 0,
+      ratingsAverage: 4.5,
+    });
+  }
+};
+
+//3) Update to the current review
+reviewSchema.post('save', function () {
+  //this points to current review
+  this.constructor.calcAverageRatings(this.tour);
+});
+
+//findByIdAndUpdate
+//findByIdAndDelete
+//1) Execute query to get tour info
+reviewSchema.pre(/^findOneAnd/, async function (next) {
+  this.r = await this.findOne();
+  next();
+});
+
+//2) Pass and set data from 'pre' to 'post'
+reviewSchema.post(/^findOneAnd/, async function (next) {
+  await this.r.constructor.calcAverageRatings(this.r.tour);
 });
 
 //creating model
