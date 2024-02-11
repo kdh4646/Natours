@@ -25,6 +25,7 @@
     > vaidator for validation
     > dotenv for control environment
     > slugify for converting to lower case
+    > pug for template engine
 
 
 
