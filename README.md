@@ -27,8 +27,9 @@
     > slugify for converting to lower case
     > pug for template engine
     > cookie-parser for analyse cookie
-
-
+    > parcel-bundler for bundling module
+    > axios for fetching data
+    > @babel/polyfill for adding support to the web browser
 
 2. Read and show data based on common template
 3. Export a module for better scalability

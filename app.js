@@ -29,7 +29,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Set security HTTP headers
 //app.use(helmet());
 
-//For the leaflet script, axios script, and openstreetmap images not to be blocked by the CSP of Helmet
+/*
+  For...
+  1) leaflet script
+  2) axios script
+  3) openstreetmap images
+  Not to be blocked by the CSP of Helmet
+*/
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
