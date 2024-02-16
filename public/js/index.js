@@ -1,11 +1,12 @@
 /* eslint-disable */
 import '@babel/polyfill';
 import { displayMap } from './leaflet';
-import { login } from './login';
+import { login, logout } from './login';
 
 //DOM ELEMENTS
 const leaflet = document.getElementById('map');
 const loginForm = document.querySelector('.form');
+const logOutBtn = document.querySelector('.nav__el--logout');
 
 //DELEGATION
 if (leaflet) {
@@ -23,3 +24,6 @@ if (loginForm) {
     login(email, password);
   });
 }
+
+//Log Out
+if (logOutBtn) logOutBtn.addEventListener('click', logout);
