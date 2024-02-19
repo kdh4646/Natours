@@ -33,6 +33,7 @@
     > multer for handling multipart/form-data
     > sharp for image processing
     > html-to-text for html to text
+    > stripe for payment
 
 2. Read and show data based on common template
 3. Export a module for better scalability
