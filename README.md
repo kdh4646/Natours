@@ -31,6 +31,7 @@
    > html-to-text for html to text
    > stripe for payment
    > compression for compressed middleware
+   > cors for enable CORS
 3. Read and show data using mongoose data and pug template
 
 # 👀 Screenshots
