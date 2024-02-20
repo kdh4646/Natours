@@ -12370,7 +12370,7 @@ var loginForm = document.querySelector('.form--login');
 var logOutBtn = document.querySelector('.nav__el--logout');
 var userDataForm = document.querySelector('.form-user-data');
 var userPasswordForm = document.querySelector('.form-user-password');
-var bookBtn = document.querySelector('book-tour');
+var bookBtn = document.getElementById('book-tour');
 
 //DELEGATION
 if (leaflet) {
