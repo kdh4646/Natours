@@ -11,31 +11,28 @@
 
 1. Implemented a tour website to learn Node.js
 2. Used
-   > express for framework
-   > mongoose for data management
-   > bcryptjs, jsonwebtoken, express-rate-limit, helmet for security
-   > express-mongo-sanitize for against NoSQL query injection
-   > xss-clean for agains XSS
-   > morgan for logger
-   > nodemailer for sending mail
-   > vaidator for validation
-   > dotenv for control environment
-   > slugify for converting to lower case
-   > pug for template engine
-   > cookie-parser for analyse cookie
-   > parcel-bundler for bundling module
-   > axios for fetching data
-   > @babel/polyfill for adding support to the web browser
-   > multer for handling multipart/form-data
-   > sharp for image processing
-   > html-to-text for html to text
-   > stripe for payment
-   > compression for compressed middleware
-   > cors for enable CORS
+   - express for framework
+   - mongoose for data management
+   - bcryptjs, jsonwebtoken, express-rate-limit, helmet for security
+   - express-mongo-sanitize for against NoSQL query injection
+   - xss-clean for agains XSS
+   - morgan for logger
+   - nodemailer for sending mail
+   - vaidator for validation
+   - dotenv for control environment
+   - slugify for converting to lower case
+   - pug for template engine
+   - cookie-parser for analyse cookie
+   - parcel-bundler for bundling module
+   - axios for fetching data
+   - @babel/polyfill for adding support to the web browser
+   - multer for handling multipart/form-data
+   - sharp for image processing
+   - html-to-text for html to text
+   - stripe for payment
+   - compression for compressed middleware
+   - cors for enable CORS
 3. Read and show data using mongoose data and pug template
 
 # 👀 Screenshots
-
-<!--
-![image](https://github.com/kdh4646/node-farm/assets/71913953/221908d3-d048-4bcb-adff-8206e85f9995)
--->
+![image](https://github.com/kdh4646/Natours/assets/71913953/e88c7380-caf5-43f1-a23b-efb8a1e59d02)
